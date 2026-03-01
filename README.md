@@ -2,6 +2,10 @@
 
 A Chrome extension that adds a sidebar panel for quick note-taking with rich text editing, image support, password protection, and full import/export capabilities.
 
+![List View](screenshots/list_view.png)
+
+![Editor](screenshots/editor_functionality.png)
+
 ## Features
 
 - **Sidebar interface** - Opens as a side panel in Chrome, stays accessible while browsing
