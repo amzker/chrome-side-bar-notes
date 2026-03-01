@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sidebar Notes+</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="github.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-actions">
+            <button id="new-note-btn" class="btn btn-primary" title="New Note">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+            <button id="search-btn" class="btn" title="Search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+            <button id="menu-btn" class="btn" title="Menu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <button id="delete-selected-btn" class="btn btn-danger hidden" title="Delete Selected Notes">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3,6 5,6 21,6"></polyline>
+                    <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="search-container" class="search-container hidden">
+        <input type="text" id="search-input" placeholder="Search notes..." />
+        <button id="clear-search" class="btn-clear">&times;</button>
+    </div>
+
+    <div id="menu-dropdown" class="menu-dropdown hidden">
+        <button id="export-json-btn" class="menu-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7,10 12,15 17,10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export Notes
+        </button>
+        <button id="import-json-btn" class="menu-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17,8 12,3 7,8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            Import Notes
+        </button>
+        <hr class="menu-divider">
+        <button id="settings-btn" class="menu-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+                </path>
+            </svg>
+            Settings
+        </button>
+        <hr class="menu-divider">
+        <button id="auto-title-btn" class="menu-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                <line x1="9" y1="20" x2="15" y2="20"></line>
+                <line x1="12" y1="4" x2="12" y2="20"></line>
+            </svg>
+            Auto Title Notes
+        </button>
+        <button id="delete-empty-btn" class="menu-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14,2 14,8 20,8"></polyline>
+                <line x1="9" y1="15" x2="15" y2="15"></line>
+            </svg>
+            Delete Empty Notes
+        </button>
+        <button id="clear-all-btn" class="menu-item danger">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3,6 5,6 21,6"></polyline>
+                <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
+            </svg>
+            Clear All Notes
+        </button>
+    </div>
+
+    <div id="notes-container" class="notes-container">
+        <!-- Notes will be dynamically inserted here -->
+    </div>
+
+    <div id="empty-state" class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14,2 14,8 20,8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10,9 9,9 8,9"></polyline>
+        </svg>
+        <h3>No notes yet</h3>
+        <p>Click the + button to create your first note</p>
+    </div>
+
+    <input type="file" id="import-file" accept=".anotes,.json" style="display: none;" />
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button id="settings-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="theme-color">Theme Color:</label>
+                    <input type="color" id="theme-color" value="#091932">
+                    <div class="color-presets">
+                        <button class="color-preset" data-color="#091932" style="background: #091932;"
+                            title="Ocean Deep"></button>
+                        <button class="color-preset" data-color="#1a2332" style="background: #1a2332;"
+                            title="Midnight"></button>
+                        <button class="color-preset" data-color="#2d1b3d" style="background: #2d1b3d;"
+                            title="Royal Purple"></button>
+                        <button class="color-preset" data-color="#1a3d2e" style="background: #1a3d2e;"
+                            title="Forest Night"></button>
+                        <button class="color-preset" data-color="#3d1a1a" style="background: #3d1a1a;"
+                            title="Dark Cherry"></button>
+                        <button class="color-preset" data-color="#2d2d1a" style="background: #2d2d1a;"
+                            title="Military Olive"></button>
+                        <button class="color-preset" data-color="#1a1a1a" style="background: #1a1a1a;"
+                            title="Charcoal"></button>
+                        <button class="color-preset" data-color="#000000" style="background: #000000;"
+                            title="Pure Black"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="settings-save" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div id="password-modal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="password-modal-title">Set Password</h3>
+                <button id="password-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="password-input">Password:</label>
+                    <input type="password" id="password-input" class="modal-input" placeholder="Enter password"
+                        autocomplete="off" />
+                </div>
+                <div id="password-confirm-group" class="setting-group">
+                    <label for="password-confirm">Confirm Password:</label>
+                    <input type="password" id="password-confirm" class="modal-input" placeholder="Confirm password"
+                        autocomplete="off" />
+                </div>
+                <div id="password-error" class="password-error hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="password-cancel" class="btn">Cancel</button>
+                <button id="password-submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Editor Modal -->
+    <div id="image-editor-modal" class="modal-overlay hidden">
+        <div class="modal image-editor-modal-content">
+            <div class="modal-header">
+                <h3>Edit Image</h3>
+                <button id="image-editor-close" class="modal-close">&times;</button>
+            </div>
+            <div class="image-editor-toolbar">
+                <button class="toolbar-btn" data-editor-action="crop" title="Crop">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6.13 1L6 16a2 2 0 0 0 2 2h15"></path>
+                        <path d="M1 6.13L16 6a2 2 0 0 1 2 2v15"></path>
+                    </svg>
+                    Crop
+                </button>
+                <button class="toolbar-btn" data-editor-action="draw" title="Draw">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                        <path d="M2 2l7.586 7.586"></path>
+                        <circle cx="11" cy="11" r="2"></circle>
+                    </svg>
+                    Draw
+                </button>
+                <span class="toolbar-sep"></span>
+                <input type="color" id="editor-draw-color" value="#ff0000" title="Draw Color"
+                    class="editor-color-input" />
+                <input type="range" id="editor-draw-size" min="1" max="20" value="3" title="Brush Size"
+                    class="editor-size-input" />
+                <span class="toolbar-sep"></span>
+                <button class="toolbar-btn" data-editor-action="reset" title="Reset to Original">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1,4 1,10 7,10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                    Reset
+                </button>
+            </div>
+            <div class="image-editor-canvas-wrap">
+                <canvas id="image-editor-canvas"></canvas>
+                <div id="crop-overlay" class="crop-overlay hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="image-editor-cancel" class="btn">Cancel</button>
+                <button id="image-editor-save" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="marked.min.js"></script>
+    <script src="highlight.min.js"></script>
+    <script src="jszip.min.js"></script>
+    <script src="storage.js"></script>
+    <script src="sidebar-core.js"></script>
+    <script src="sidebar-features.js"></script>
+</body>
+
+</html>
