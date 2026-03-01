@@ -577,25 +577,24 @@ class NotesApp {
             .replace(/<em>(.*?)<\/em>/g, '*$1*')
             .replace(/<i>(.*?)<\/i>/g, '*$1*')
             .replace(/<del>(.*?)<\/del>/g, '~~$1~~')
-            .replace(/<h1>(.*?)<\/h1>/g, '# $1')
-            .replace(/<h2>(.*?)<\/h2>/g, '## $1')
-            .replace(/<h3>(.*?)<\/h3>/g, '### $1')
+            .replace(/<h1>(.*?)<\/h1>/g, '\n# $1\n\n')
+            .replace(/<h2>(.*?)<\/h2>/g, '\n## $1\n\n')
+            .replace(/<h3>(.*?)<\/h3>/g, '\n### $1\n\n')
             .replace(/<ul>(.*?)<\/ul>/gs, (m, c) => {
                 const items = c.match(/<li>(.*?)<\/li>/g);
-                return items ? items.map(i => '- ' + i.replace(/<\/?li>/g, '')).join('\n') : m;
+                return items ? '\n' + items.map(i => '- ' + i.replace(/<\/?li>/g, '')).join('\n') + '\n' : m;
             })
             .replace(/<ol>(.*?)<\/ol>/gs, (m, c) => {
                 const items = c.match(/<li>(.*?)<\/li>/g);
-                return items ? items.map((i, n) => (n + 1) + '. ' + i.replace(/<\/?li>/g, '')).join('\n') : m;
+                return items ? '\n' + items.map((i, n) => (n + 1) + '. ' + i.replace(/<\/?li>/g, '')).join('\n') + '\n' : m;
             })
             .replace(/<br\s*\/?>/g, '\n')
-            .replace(/<div>/g, '').replace(/<\/div>/g, '\n')
-            .replace(/<p>/g, '').replace(/<\/p>/g, '\n')
+            .replace(/<\/div>/g, '').replace(/<div>/g, '\n')
+            .replace(/<\/p>/g, '\n\n').replace(/<p>/g, '')
             .replace(/<blockquote>(.*?)<\/blockquote>/gs, (m, c) => c.split('\n').map(l => '> ' + l).join('\n'));
 
-        const f = document.createElement('div');
-        f.innerHTML = md;
-        md = f.textContent || f.innerText || md;
+        // Strip any remaining HTML tags
+        md = md.replace(/<[^>]+>/g, '');
         return md.replace(/\n{3,}/g, '\n\n').trim();
     }
 
